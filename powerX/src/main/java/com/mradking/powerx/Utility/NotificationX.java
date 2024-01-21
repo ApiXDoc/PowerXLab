@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
-import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 
 import com.deeplabstudio.fcmsend.FCMSend;
@@ -55,9 +54,10 @@ public class NotificationX {
     }
 
 
-    public  static  void send_notification(Context context,String device_token,String Title,String message,Notification_Status_Call call){
+    public  static  void send_notification(Context context, String device_token, String Title, String message,  Notification_Status_Call call){
 
         FCMSend.SetServerKey(serverKey);
+
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
 
             NotificationChannel notificationChannel=new NotificationChannel(CHANNEL_ID,CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
