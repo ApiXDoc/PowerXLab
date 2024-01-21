@@ -31,7 +31,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         getSystemService(NotificationManager.class).createNotificationChannel(channel);
 
         // Create an Intent for the new activity
-        Intent intent = new Intent(this, Notification_act.class);
+        Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this,
