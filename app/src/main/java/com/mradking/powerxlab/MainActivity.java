@@ -5,13 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.renderscript.Sampler;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mradking.powerx.Utility.Constanet;
+import com.mradking.powerx.Utility.NotificationX;
+import com.mradking.powerx.Utility.Notification_Status_Call;
 import com.mradking.powerx.Utility.PermissionsX;
 import com.mradking.powerx.Utility.ServerX;
 import com.mradking.powerx.Utility.server_result_call;
+import com.mradking.powerx.Utility.token_call;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +42,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button sent_notification_bt= findViewById(R.id.sent_notification_bt);
+
+        sent_notification_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                send_notification_act();
+
+            }
+        });
+
+
+
 
 
 
@@ -70,6 +88,38 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         /////////////////////////////////////////////////////
+
+    }
+
+    private void send_notification_act() {
+
+        NotificationX.getNotificationToken(new token_call() {
+            @Override
+            public void on_susess(String token) {
+
+
+                Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+
+                NotificationX.send_notification(MainActivity.this
+                        , token, "This is test", "i know this is test", new Notification_Status_Call() {
+                            @Override
+                            public void on_susess(String Sussess) {
+
+                            }
+
+                            @Override
+                            public void on_failed(String message) {
+
+                            }
+                        });
+
+            }
+
+            @Override
+            public void on_failed(String message) {
+
+            }
+        });
 
     }
 

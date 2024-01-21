@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "699419485063",
+    "project_id": "apix-ee26c",
+    "storage_bucket": "apix-ee26c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699419485063:android:24eecd60a9c482b820e922",
+        "android_client_info": {
+          "package_name": "com.mradking.powerx"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFqmw8T9puvoJtXN2ng-Pr2GtMrW99lTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

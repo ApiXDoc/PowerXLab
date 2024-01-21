@@ -42,6 +42,7 @@ public class ServerX {
             RequestBody requestBody = RequestBody.create(JSON, jsonData);
 
             OkHttpClient client = new OkHttpClient();
+
             Request request = new Request.Builder()
                     .url(url)
                     .post(requestBody)
