@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -32,6 +33,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Create an Intent for the new activity
         Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
+        Log.e("adsssdsdsa", getPackageManager().getLaunchIntentForPackage(getPackageName()).toString());
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(
