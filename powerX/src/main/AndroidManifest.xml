@@ -3,16 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_rules"
         android:screenOrientation="portrait"
+
         tools:targetApi="31">
 
         <activity android:name=".Utility.notification.notification.Notification_act"
             ></activity>
-
+        <activity android:name=".Utility.PayX"
+            ></activity>
 
         <service
             android:name=".Utility.notification.notification.MyFirebaseMessagingService"

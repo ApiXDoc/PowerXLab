@@ -14,6 +14,7 @@ import com.google.gson.GsonBuilder;
 import com.mradking.powerx.Utility.Constanet;
 import com.mradking.powerx.Utility.NotificationX;
 import com.mradking.powerx.Utility.Notification_Status_Call;
+import com.mradking.powerx.Utility.PayX;
 import com.mradking.powerx.Utility.PermissionsX;
 import com.mradking.powerx.Utility.ServerX;
 import com.mradking.powerx.Utility.server_result_call;
@@ -37,12 +38,39 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        
+        if(PayX.result.contentEquals("done")){
+
+            Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();
+
+        }else if(PayX.result.contentEquals("no done")){
+
+            Toast.makeText(this, "not done", Toast.LENGTH_SHORT).show();
+
+
+        }
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button sent_notification_bt= findViewById(R.id.sent_notification_bt);
+        Button payx_bt=findViewById(R.id.payx);
+
+        payx_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                PayX.TranctionX(MainActivity.this,"1","UWPyR5jiVVOiCo2IZIFITS7qzlI3");
+
+            }
+        });
 
         sent_notification_bt.setOnClickListener(new View.OnClickListener() {
             @Override
