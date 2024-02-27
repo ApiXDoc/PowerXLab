@@ -141,6 +141,7 @@ public class PayX extends Activity {
             public void onFailure(@NonNull Exception e) {
 
                 progressDialog.dismiss();
+                Toast.makeText(PayX.this, "Invalid Your Api Key", Toast.LENGTH_SHORT).show();
 
             }
         });

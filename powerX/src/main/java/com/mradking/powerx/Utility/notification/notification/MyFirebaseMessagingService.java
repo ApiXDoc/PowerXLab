@@ -56,8 +56,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Call super.onMessageReceived at the end
         super.onMessageReceived(remoteMessage);
-
-        // You may want to display a custom notification as well
-        NotificationHelper.displayNotification(getApplicationContext(), title, text);
     }
+
+
 }

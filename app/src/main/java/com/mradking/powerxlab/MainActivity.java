@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                PayX.TranctionX(MainActivity.this,"1","UWPyR5jiVVOiCo2IZIFITS7qzlI3");
+                PayX.TranctionX(MainActivity.this,"1","Bria72E5aPUjBm4vFZQMqhonVZN2");
 
             }
         });
