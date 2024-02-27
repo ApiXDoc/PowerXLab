@@ -22,6 +22,9 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.protobuf.Api;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class PayX extends Activity {
     public static final int UPI_TRANSACTION_REQUEST_CODE = 123; // Choose any integer value you prefer
 
@@ -30,6 +33,8 @@ public class PayX extends Activity {
     String api_key_st;
     FirebaseFirestore firebaseFirestore;
     ProgressDialog progressDialog;
+    String token;
+    String name_st;
 
 
     String key_amt;
@@ -90,24 +95,42 @@ public class PayX extends Activity {
                 Log.e("afdsfasdfsf",upi_link);
 
                 key_amt=documentSnapshot.getString("key");
+               firebaseFirestore.collection("user")
+                       .document(getIntent().getExtras().getString("api_key"))
+                       .get().
+                       addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                           @Override
+                           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-                if(Integer.parseInt(key_amt)<=0){
+                               DocumentSnapshot documentSnapshot1=task.getResult();
+                               token=documentSnapshot1.getString("notification_token");
+                                name_st=documentSnapshot1.getString("name");
 
-                    Log.e("afdsfasdfsf","setp_1");
-                    progressDialog.dismiss();
-                    finish();
-                    Toast.makeText(PayX.this, "Trangection Failed Your Trangection Key Have Been Finshed ", Toast.LENGTH_SHORT).show();
 
-                }else {
-                    Log.e("afdsfasdfsf","setp_2");
-                    progressDialog.dismiss();
+                               if(Integer.parseInt(key_amt)<=0){
 
-                    result="else";
-                    String upiLink = upi_link+getIntent().getExtras().getString("amount");
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(upiLink));
-                    startActivityForResult(intent, UPI_TRANSACTION_REQUEST_CODE);
-                }
+                                   Log.e("afdsfasdfsf","setp_1");
+                                   progressDialog.dismiss();
+                                   finish();
+                                   Toast.makeText(PayX.this, "Trangection Failed Your Trangection Key Have Been Finshed ", Toast.LENGTH_SHORT).show();
+
+                               }else {
+                                   Log.e("afdsfasdfsf","setp_2");
+                                   progressDialog.dismiss();
+
+                                   result="else";
+                                   String upiLink = upi_link+getIntent().getExtras().getString("amount");
+                                   Intent intent = new Intent(Intent.ACTION_VIEW);
+                                   intent.setData(Uri.parse(upiLink));
+                                   startActivityForResult(intent, UPI_TRANSACTION_REQUEST_CODE);
+                               }
+
+
+
+
+                           }
+                       });
+
 
 //
 
@@ -202,8 +225,41 @@ public class PayX extends Activity {
 
                         Log.e("asdsfsfdsds","here_2");
 
-                        result="done";
-                        finish();
+                        Map<String,Object>map=new HashMap<>();
+                        map.put("amt",getIntent().getExtras().getString("amount"));
+                        map.put("date",FieldValue.serverTimestamp());
+                        map.put("uid",getIntent().getExtras().getString(api_key_st));
+
+                        firebaseFirestore.collection("PayX_Trangection_Summery")
+                                .document().set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                        String title_st="Payment Received:"+getIntent().getExtras().getString("amount");
+                                        String message="A payment of "+ getIntent().getExtras().getString("amount") +"has been successfully received.";
+
+                                        NotificationX.send_notification(PayX.this, token, title_st, message, new Notification_Status_Call() {
+                                            @Override
+                                            public void on_susess(String Sussess) {
+
+                                                result="done";
+                                                finish();
+                                            }
+
+                                            @Override
+                                            public void on_failed(String message) {
+
+                                                result="done";
+                                                finish();
+                                            }
+                                        });
+
+
+
+                                    }
+                                });
+
+
 
 
                     }
